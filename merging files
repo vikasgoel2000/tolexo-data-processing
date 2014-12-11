@@ -1,0 +1,8 @@
+filenames <- list.files(".", pattern="*.csv", full.names=TRUE)
+merge<-data.frame()
+for (i in 1:length(filenames)) {
+ab<-read.csv(filenames[i], stringsAsFactors=FALSE)
+merge<-merge(ab,merge,all.x=T,all.y=T)
+}
+merge<-merge[,colSums(is.na(merge))<nrow(merge)]
+write.csv(merge, file = "merge.csv")
